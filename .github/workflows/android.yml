@@ -13,7 +13,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Mostrar estrutura do repositório
-        run: find . -maxdepth 4 -not -path "./.git/*"
+        run: find . -maxdepth 6 -not -path "./.git/*"
+
+      - name: Corrigir maiúsculas/minúsculas de pastas (Res -> res)
+        run: |
+          if [ -d "app/src/main/Res" ] && [ ! -d "app/src/main/res" ]; then
+            mv "app/src/main/Res" "app/src/main/res"
+            echo "Renomeado: app/src/main/Res -> app/src/main/res"
+          fi
 
       - name: Set up Java 17
         uses: actions/setup-java@v4
